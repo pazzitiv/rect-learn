@@ -1,0 +1,32 @@
+@import "../../loadtheme";
+
+.header {
+    background: $Black;
+    color: $ClearWhite;
+    display: flex;
+    align-items: center;
+
+    & .logo {
+        display: inline-flex;
+
+        &__image {
+            width: 50px;
+
+            & img {
+                width: 100%;
+                height: auto;
+                display: flex;
+            }
+        }
+
+        &__text {
+            display: inline-flex;
+            align-items: center;
+
+            & span {
+                font-size: 1.2rem;
+                color: $White;
+            }
+        }
+    }
+}

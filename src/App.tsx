@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import './App.scss';
+import Header from "./components/header/header";
+import Content from "./components/content/content";
+import Modules from "./components/module/module";
+import {AppData} from "./types/appdata";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from "react-router-dom";
+
+export const AppContext = React.createContext<AppData>({
+    authenticate: {
+        user: null,
+        auth: null
+    }
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [isAuthorized] = useState(false);
+    let App: AppData = {
+        authenticate: {
+            user: null,
+            auth: null
+        }
+    };
+    return (
+        <AppContext.Provider value={App}>
+            <Modules code="auth" testprop={true}/>
+
+            <Router>
+                <Switch>
+                    <Route path="/">
+                        {isAuthorized && <Header/>}
+                        <Content/>
+                    </Route>
+                </Switch>
+            </Router>
+
+        </AppContext.Provider>
+    );
 }
 
 export default App;
